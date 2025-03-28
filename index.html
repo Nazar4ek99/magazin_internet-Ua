@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-
-    <script src="script.js"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Інтернет-магазин</title>
+    <script src="script.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,6 +33,7 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 250px;
+            cursor: pointer;
         }
         .product img {
             width: 100%;
@@ -109,6 +108,65 @@
         .search-bar {
             margin: 20px;
         }
+        /* Деталі товару */
+        .product-details {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .details-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 600px;
+            text-align: left;
+        }
+        .close-btn {
+            background: red;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .details-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .details-buttons {
+            margin-top: 10px;
+        }
+        .details-buttons button {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .details-header img {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .product-specs {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .product-specs div {
+            margin: 5px 0;
+        }
+        .product-specs strong {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
@@ -117,71 +175,44 @@
         <input type="text" id="searchInput" placeholder="Пошук товарів..." oninput="filterProducts()" />
     </div>
     <div class="container" id="productContainer">
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg" alt="Ноутбук">
+        <!-- Продукти -->
+        <div class="product" onclick="showDetails('MacBook Air M2')">
+            <img src="file:///Users/nazar/Desktop/download.jpg" alt="Ноутбук">
             <h2>MacBook Air M2</h2>
             <p>Потужний ноутбук для роботи та навчання</p>
             <strong>₴49,999</strong>
             <button class="btn cart" onclick="addToCart('MacBook Air M2', 49999)">Додати в кошик</button>
         </div>
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/81X1Y7p4GUL._AC_SL1500_.jpg" alt="Ноутбук">
-            <h2>ASUS ROG Strix G16</h2>
-            <p>Ігровий ноутбук з RTX 4060</p>
-            <strong>₴59,999</strong>
-            <button class="btn cart" onclick="addToCart('ASUS ROG Strix G16', 59999)">Додати в кошик</button>
-        </div>
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/71TPTzIQbBL._AC_SL1500_.jpg" alt="Монітор">
+        <div class="product" onclick="showDetails('LG UltraGear 27”')">
+            <img src="file:///Users/nazar/Desktop/download-1.jpg" alt="Монітор">
             <h2>LG UltraGear 27”</h2>
             <p>Монітор 144 Гц для геймерів</p>
             <strong>₴14,999</strong>
             <button class="btn cart" onclick="addToCart('LG UltraGear 27”', 14999)">Додати в кошик</button>
         </div>
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/81kaG4xqQHL._AC_SL1500_.jpg" alt="Ноутбук">
-            <h2>Lenovo ThinkPad X1</h2>
-            <p>Бізнес-ноутбук з Intel i7</p>
-            <strong>₴44,999</strong>
-            <button class="btn cart" onclick="addToCart('Lenovo ThinkPad X1', 44999)">Додати в кошик</button>
+        <div class="product" onclick="showDetails('ASUS ROG Strix G16')">
+            <img src="file:///Users/nazar/Desktop/download-2.jpg" alt="Ноутбук">
+            <h2>ASUS ROG Strix G16</h2>
+            <p>Ігровий ноутбук з RTX 4060</p>
+            <strong>₴59,999</strong>
+            <button class="btn cart" onclick="addToCart('ASUS ROG Strix G16', 59999)">Додати в кошик</button>
         </div>
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/81H0L9XEqbL._AC_SL1500_.jpg" alt="Мишка">
+        <div class="product" onclick="showDetails('Logitech G Pro X')">
+            <img src="file:///Users/nazar/Desktop/download-3.jpg" alt="Мишка">
             <h2>Logitech G Pro X</h2>
             <p>Професійна ігрова мишка</p>
             <strong>₴4,999</strong>
             <button class="btn cart" onclick="addToCart('Logitech G Pro X', 4999)">Додати в кошик</button>
         </div>
-    </div>
-</body>
-</html>
-
-    <h1>🛒 Інтернет-магазин</h1>
-
-    <!-- Пошуковий блок -->
-    <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Пошук товарів..." oninput="filterProducts()" />
-    </div>
-
-    <div class="container" id="productContainer">
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg" alt="Ноутбук">
-            <h2>MacBook Air M2</h2>
-            <p>Потужний ноутбук для роботи та навчання</p>
-            <strong>₴49,999</strong>
-            <button class="btn cart" onclick="addToCart('MacBook Air M2', 49999)">Додати в кошик</button>
-        </div>
-
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/61KoVazN4SL._AC_SL1500_.jpg" alt="Процесор">
+        <div class="product" onclick="showDetails('Intel Core i9')">
+            <img src="file:///Users/nazar/Desktop/download-4.jpg" alt="Процесор">
             <h2>Intel Core i9</h2>
             <p>Високопродуктивний процесор</p>
             <strong>₴19,999</strong>
             <button class="btn cart" onclick="addToCart('Intel Core i9', 19999)">Додати в кошик</button>
         </div>
-
-        <div class="product">
-            <img src="https://m.media-amazon.com/images/I/61L9nLzUUXL._AC_SL1500_.jpg" alt="Відеокарта">
+        <div class="product" onclick="showDetails('NVIDIA RTX 4090')">
+            <img src="file:///Users/nazar/Desktop/download-5.jpg" alt="Відеокарта">
             <h2>NVIDIA RTX 4090</h2>
             <p>Найкраща відеокарта для геймерів</p>
             <strong>₴79,999</strong>
@@ -189,39 +220,41 @@
         </div>
     </div>
 
+    <!-- Кошик -->
     <div class="cart-container">
-        <h2>🛒 Кошик</h2>
+        <h3>Ваш кошик</h3>
         <div class="cart-items"></div>
         <div class="cart-total">Загальна сума: ₴0</div>
-        <button class="btn checkout" onclick="showPaymentForm()">Оплатити</button>
+        <button class="btn checkout">Оформити замовлення</button>
     </div>
 
-    <!-- Форма для введення платіжних даних -->
-    <div class="payment-form" id="paymentForm">
-        <h2>Оплата</h2>
-        <form id="paymentDetails">
-            <label for="cardNumber">Номер картки:</label><br>
-            <input type="text" id="cardNumber" name="cardNumber" required><br><br>
-            <label for="expiryDate">Термін дії (мм/рр):</label><br>
-            <input type="text" id="expiryDate" name="expiryDate" required><br><br>
-            <label for="cvv">CVV:</label><br>
-            <input type="text" id="cvv" name="cvv" required><br><br>
-            <button type="submit" class="btn">Підтвердити оплату</button>
-        </form>
+    <!-- Деталі товару -->
+    <div class="product-details" id="productDetails">
+        <div class="details-content">
+            <div class="details-header" id="detailsHeader"></div>
+            <img id="detailsImage" src="" alt="">
+            <div id="productDescription"></div>
+            <div class="product-specs" id="productSpecs"></div>
+            <div class="details-buttons">
+                <button onclick="showReviews()">Відгуки</button>
+                <button onclick="showSpecifications()">Характеристики</button>
+                <button class="close-btn" onclick="closeDetails()">Закрити</button>
+            </div>
+        </div>
     </div>
 
     <script>
         let cart = [];
         let totalPrice = 0;
 
-        // Додати товар в кошик
+        // Додавання товару до кошика
         function addToCart(name, price) {
             cart.push({ name, price });
             totalPrice += price;
             updateCart();
         }
 
-        // Оновити кошик
+        // Оновлення кошика
         function updateCart() {
             const cartItems = document.querySelector('.cart-items');
             const cartTotal = document.querySelector('.cart-total');
@@ -240,30 +273,11 @@
             cartTotal.innerHTML = `Загальна сума: ₴${totalPrice}`;
         }
 
-        // Показати форму для оплати
-        function showPaymentForm() {
-            if (cart.length === 0) {
-                alert('Ваш кошик порожній!');
-                return;
-            }
-            document.getElementById('paymentForm').style.display = 'block';
-        }
-
-        // Обробка форми оплати
-        document.getElementById('paymentDetails').addEventListener('submit', function (event) {
-            event.preventDefault();
-            alert(`Оплата на суму ₴${totalPrice} успішно завершена!`);
-            cart = [];
-            totalPrice = 0;
-            updateCart();
-            document.getElementById('paymentForm').style.display = 'none';
-        });
-
-        // Пошук товарів
+        // Фільтрація товарів за пошуком
         function filterProducts() {
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const products = document.querySelectorAll('.product');
-            
+
             products.forEach(product => {
                 const productName = product.querySelector('h2').textContent.toLowerCase();
                 if (productName.includes(searchQuery)) {
@@ -273,9 +287,79 @@
                 }
             });
         }
-    </script>
 
+        // Відображення деталей товару
+        function showDetails(productName) {
+            const detailsHeader = document.getElementById('detailsHeader');
+            const detailsImage = document.getElementById('detailsImage');
+            const productDescription = document.getElementById('productDescription');
+            const productSpecs = document.getElementById('productSpecs');
+            const productDetails = document.getElementById('productDetails');
+
+            let description = '';
+            let specs = '';
+
+            if (productName === 'MacBook Air M2') {
+                detailsImage.src = 'file:///Users/nazar/Desktop/download.jpg';
+                description = 'MacBook Air M2 – потужний ноутбук для роботи та навчання, з процесором M2.';
+                specs = `
+                    <div><strong>Екран:</strong> 13.6” Liquid Retina</div>
+                    <div><strong>Процесор:</strong> Apple M2</div>
+                    <div><strong>Оперативна пам'ять:</strong> 8 GB</div>
+                    <div><strong>Зберігання:</strong> 256 GB SSD</div>
+                    <div><strong>Батарея:</strong> До 18 годин</div>
+                    <div><strong>Вага:</strong> 1.24 кг</div>
+                `;
+            }
+
+            if (productName === 'LG UltraGear 27”') {
+                detailsImage.src = 'file:///Users/nazar/Desktop/download-1.jpg';
+                description = 'Монітор LG UltraGear 27” з роздільною здатністю 2560x1440, частотою оновлення 144 Гц.';
+                specs = `
+                    <div><strong>Екран:</strong> 27” QHD</div>
+                    <div><strong>Частота оновлення:</strong> 144 Hz</div>
+                    <div><strong>Час відгуку:</strong> 1 ms</div>
+                    <div><strong>Яскравість:</strong> 350 cd/m²</div>
+                    <div><strong>Порти:</strong> HDMI, DisplayPort</div>
+                `;
+            }
+
+            if (productName === 'ASUS ROG Strix G16') {
+                detailsImage.src = 'file:///Users/nazar/Desktop/download-2.jpg';
+                description = 'Ігровий ноутбук ASUS ROG Strix G16 з RTX 4060, для найвищої продуктивності в іграх.';
+                specs = `
+                    <div><strong>Процесор:</strong> Intel Core i7-12700H</div>
+                    <div><strong>Графіка:</strong> NVIDIA RTX 4060</div>
+                    <div><strong>Оперативна пам'ять:</strong> 16 GB</div>
+                    <div><strong>Дисплей:</strong> 16” Full HD</div>
+                    <div><strong>Зберігання:</strong> 512 GB SSD</div>
+                    <div><strong>Батарея:</strong> До 12 годин</div>
+                `;
+            }
+
+            detailsHeader.textContent = productName;
+            productDescription.textContent = description;
+            productSpecs.innerHTML = specs;
+
+            productDetails.style.display = 'flex';
+        }
+
+        // Закриття деталей товару
+        function closeDetails() {
+            const productDetails = document.getElementById('productDetails');
+            productDetails.style.display = 'none';
+        }
+
+        // Відображення відгуків
+        function showReviews() {
+            alert("Тут будуть відгуки про товар.");
+        }
+
+        // Відображення характеристик
+        function showSpecifications() {
+            alert("Тут будуть характеристики товару.");
+        }
+    </script>
 </body>
 </html>
-
 
